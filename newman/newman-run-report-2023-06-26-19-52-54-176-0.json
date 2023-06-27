@@ -1,0 +1,587 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "ab2240eb-ae3e-427f-b852-12168598f1ce",
+      "exporter_id": "24471297"
+    },
+    "item": [
+      {
+        "id": "3eb3daed-a672-4c83-b7f1-480524fac820",
+        "name": "New Request",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "9f836d14-e010-4f8c-b384-bbbda371cdc9",
+        "name": "New Request Copy",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      },
+      {
+        "id": "89a87834-2675-42e8-8f66-3602e16249b2",
+        "name": "New Request Copy 2",
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": []
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "ab2240eb-ae3e-427f-b852-12168598f1ce",
+      "name": "TestNewman",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "id": "19e3e7d8-8367-4dc0-baf7-f26fb8361736",
+    "values": []
+  },
+  "globals": {
+    "id": "5f9f41ab-4bf1-4566-bdae-b2f79e1b0905",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 3,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 135.33333333333334,
+      "responseMin": 52,
+      "responseMax": 301,
+      "responseSd": 117.14473478944281,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1687809173511,
+      "completed": 1687809174170
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 3,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "31ab84f5-edbc-4f30-a4bd-63f0ed9a754c",
+          "httpRequestId": "1be18f09-d2a8-4eee-96d0-cad652e39dea"
+        },
+        "item": {
+          "id": "3eb3daed-a672-4c83-b7f1-480524fac820",
+          "name": "New Request",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "status"
+              ],
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "eab0f618-1e3d-46f8-ada2-4c258361f930",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "simple-books-api.glitch.me",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "e2948df9-4e06-4009-bdc2-4b27ad413f61",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 26 Jun 2023 19:52:52 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "15"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"f-v/Y1JusChTxrQUzPtNAKycooOTA\""
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              79,
+              75,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 301,
+          "responseSize": 15
+        },
+        "id": "3eb3daed-a672-4c83-b7f1-480524fac820"
+      },
+      {
+        "cursor": {
+          "ref": "f131b045-b756-4488-a64c-7c650fd3293d",
+          "length": 3,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "46777b9e-2ff2-43f2-89dd-7a534f17b62b"
+        },
+        "item": {
+          "id": "9f836d14-e010-4f8c-b384-bbbda371cdc9",
+          "name": "New Request Copy",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "status"
+              ],
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f00ebe3b-4057-40e5-9c4f-0ed5c01c155c",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "simple-books-api.glitch.me",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "81720721-59a6-4bf8-92f6-79008763e165",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 26 Jun 2023 19:52:53 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "15"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"f-v/Y1JusChTxrQUzPtNAKycooOTA\""
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              79,
+              75,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 52,
+          "responseSize": 15
+        },
+        "id": "9f836d14-e010-4f8c-b384-bbbda371cdc9"
+      },
+      {
+        "cursor": {
+          "ref": "562eb9f3-5d8f-4ffb-84c1-75f71fed29b1",
+          "length": 3,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "4e6f04d8-3e28-4f89-a400-39620b51a338"
+        },
+        "item": {
+          "id": "89a87834-2675-42e8-8f66-3602e16249b2",
+          "name": "New Request Copy 2",
+          "request": {
+            "url": {
+              "protocol": "https",
+              "path": [
+                "status"
+              ],
+              "host": [
+                "simple-books-api",
+                "glitch",
+                "me"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": []
+        },
+        "request": {
+          "url": {
+            "protocol": "https",
+            "path": [
+              "status"
+            ],
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.29.0",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "41db972e-c71b-4f20-a120-4da1c156b6c6",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "simple-books-api.glitch.me",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "00ad7f12-2735-4e9c-b0f6-3325b13b954b",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Mon, 26 Jun 2023 19:52:53 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "15"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"f-v/Y1JusChTxrQUzPtNAKycooOTA\""
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              34,
+              79,
+              75,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 53,
+          "responseSize": 15
+        },
+        "id": "89a87834-2675-42e8-8f66-3602e16249b2"
+      }
+    ],
+    "transfers": {
+      "responseTotal": 45
+    },
+    "failures": [],
+    "error": null
+  }
+}

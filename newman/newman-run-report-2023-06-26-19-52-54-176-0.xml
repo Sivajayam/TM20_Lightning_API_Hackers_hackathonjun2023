@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="TestNewman" tests="3" time="0.406">
+  <testsuite name="New Request" id="3eb3daed-a672-4c83-b7f1-480524fac820" timestamp="2023-06-26T19:52:53.511Z" tests="0" failures="0" errors="0" time="0.301"/>
+  <testsuite name="New Request Copy" id="9f836d14-e010-4f8c-b384-bbbda371cdc9" timestamp="2023-06-26T19:52:53.511Z" tests="0" failures="0" errors="0" time="0.052"/>
+  <testsuite name="New Request Copy 2" id="89a87834-2675-42e8-8f66-3602e16249b2" timestamp="2023-06-26T19:52:53.511Z" tests="0" failures="0" errors="0" time="0.053"/>
+</testsuites>
