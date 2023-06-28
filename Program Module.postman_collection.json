@@ -1,0 +1,1319 @@
+{
+	"info": {
+		"_postman_id": "a6de763d-ed51-4a0f-9c65-c62ea9a51bbe",
+		"name": "Program Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24471297",
+		"_collection_link": "https://warped-water-711834.postman.co/workspace/TM20_Lightning_API_Hackers_hack~a44bf0c2-4210-470d-b1bd-fefbd7994fad/collection/23644253-a6de763d-ed51-4a0f-9c65-c62ea9a51bbe?action=share&creator=24471297&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "POST-SFDC Program1 Creation status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/* Get the current counter value",
+							"",
+							"var counter = pm.globals.get(\"counter\")",
+							"",
+							"// Increment the counter by 1",
+							"counter++;",
+							"",
+							"// Set the updated counter value",
+							"pm.globals.set(\"counter\", counter);",
+							"",
+							"// Use the dynamic number in the request",
+							"pm.variables.set(\"dynamicNumber\", counter);",
+							"*/",
+							"var cDateStr = new Date().toISOString();",
+							"var lDateStr = new Date().toISOString();",
+							"var date = new Date();",
+							"var year = date.getFullYear().toString();",
+							"var month = date.getMonth().toString();",
+							"var day = date.getDay().toString();",
+							"var hour = date.getHours().toString();",
+							"var minute = date.getMinutes().toString();",
+							"var secs = date.getMilliseconds().toString();",
+							"//var dateformat = year + month + day + hour + minute + secs;",
+							"var month = date.getMonth().toString();",
+							"var dateformat = hour+minute+month;",
+							"pm.globals.set(\"Newcounter\",dateformat);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"console.log(response.programId);",
+							"pm.globals.set(\"CHProgId\", response.programId);",
+							"console.log(response.programName);",
+							"pm.globals.set(\"CHprogNamebyId\", response.programName);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"{{progDesc}}\",\n\"programName\" : \"{{teamName}}{{Newcounter}}\",\n\"programStatus\" : \"{{progStatus}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-SFDC Program1 Creation status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"Program for Salesforce Admin & Dev\",\n\"programName\" : \"{{CHprogNamebyId}}\",\n\"programStatus\" : \"Active\"\n\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-SFDC Program1 Creation status code 500",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value",
+							"var counter = pm.globals.get(\"counter\")",
+							"",
+							"// Increment the counter by 1",
+							"counter++;",
+							"",
+							"// Set the updated counter value",
+							"pm.globals.set(\"counter\", counter);",
+							"",
+							"// Use the dynamic number in the request",
+							"pm.variables.set(\"dynamicNumber\", counter);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"Program for Salesforce Admin & Dev\",\n\"programName\" : \"Jun23-Lightning API Hackers-SFDC-{{dynamicNumber}}\",\n\"programStatus\" : null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-SFDC Program2 Creation status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"/* Get the current counter value",
+							"var counter = pm.globals.get(\"counter\")",
+							"",
+							"// Increment the counter by 1",
+							"counter++;",
+							"",
+							"// Set the updated counter value",
+							"pm.globals.set(\"counter\", counter);",
+							"",
+							"// Use the dynamic number in the request",
+							"pm.variables.set(\"dynamicNumber\", counter);",
+							"*/",
+							"var cDateStr = new Date().toISOString();",
+							"var lDateStr = new Date().toISOString();",
+							"var date = new Date();",
+							"var year = date.getFullYear().toString();",
+							"var month = date.getMonth().toString();",
+							"var day = date.getDay().toString();",
+							"var hour = date.getHours().toString();",
+							"var minute = date.getMinutes().toString();",
+							"var secs = date.getMilliseconds().toString();",
+							"//var dateformat = year + month + day + hour + minute + secs;",
+							"var dateformat =hour+secs;",
+							"pm.globals.set(\"ctr1\",dateformat);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"const response1 = pm.response.json();",
+							"console.log(response1.programName);",
+							"pm.globals.set(\"CHanprogName\",response1.programName);",
+							"console.log(response1.programId);",
+							"pm.globals.set(\"CHanprogIdbyName\", \"variable_value\");",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"{{progDesc}}\",\n\"programName\" : \"{{teamName}}{{ctr1}}\",\n\"programStatus\" : \"{{progStatus}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-SFDC Program2 Creation status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"Program for Salesforce Admin & Dev\",\n\"programName\" : \"{{CHanprogName}}\",\n\"programStatus\" : \"Active\"\n\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-SFDC Program2 Creation status code 500",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value",
+							"var counter = pm.environment.get(\"counter\");",
+							"",
+							"// Increment the counter by 1",
+							"counter++;",
+							"",
+							"// Set the updated counter value",
+							"pm.environment.set(\"counter\", counter);",
+							"",
+							"// Use the dynamic number in the request",
+							"pm.variables.set(\"dynamicNumber\", counter);",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"Program for Salesforce Admin & Dev\",\n\"programName\" : \"Jun23-Lightning API Hackers-SFDC-{{dynamicNumber}}\",\n\"programStatus\" : null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-All Programs status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/allPrograms",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"allPrograms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-1 Program ID status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/programs/{{CHProgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"programs",
+						"{{CHProgId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-1 Program ID better way using Path variables status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/programs/:programId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"programs",
+						":programId"
+					],
+					"variable": [
+						{
+							"key": "programId",
+							"value": "{{CHProgId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-1 Program  status code 404 with error message",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\" : \"Program for Salesforce Admin & Dev\",\n\"programName\" : \"{{CHprogNamebyId}}\",\n\"programStatus\" : \"Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/programs/{{delProgIdForBatch}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"programs",
+						"{{delProgIdForBatch}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY name Status code-200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHanprogName}}\",\n\"programStatus\": \"Updated-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/program/{{CHanprogName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"program",
+						"{{CHanprogName}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY name Status code-200 by path variable",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated Path-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHanprogName}}\",\n\"programStatus\": \"Updated Path-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/program/:programName",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"program",
+						":programName"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "programName",
+							"value": "{{CHanprogName}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY name Status code-404 for invalid Program Name",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHanprogName}}\",\n\"programStatus\": \"Updated-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/program/{{CHwrongpgName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"program",
+						"{{CHwrongpgName}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY name Status code-400-Bug",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHanprogName}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/program/{{CHanprogName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"program",
+						"{{CHanprogName}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY ID Status code-200 with changed endpoint URL",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated by ID-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHprogNamebyId}}\",\n\"programStatus\": \"Updated by ID-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/putprogram/{{CHProgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"putprogram",
+						"{{CHProgId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY ID Status code-200 with changed endpoint URL and path variable",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responsedel =pm.response.json();",
+							"console.log(responsedel.programId);",
+							"pm.globals.set(\"DelglobalprogId\", responsedel.programId);",
+							"console.log(responsedel.programName);",
+							"pm.globals.set(\"DelglobalprogName\", responsedel.programName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated by ID by Path-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHprogNamebyId}}\",\n\"programStatus\": \"Updated by ID by Path-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/putprogram/:programId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"putprogram",
+						":programId"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					],
+					"variable": [
+						{
+							"key": "programId",
+							"value": "{{CHProgId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY ID Status code-404 with changed endpoint URL",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated by ID by Path-Program for Salesforce Admin & Dev\",\n\"programName\": \"{{CHanprogName}}\",\n\"programStatus\": \"Updated by ID by Path-Active\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/putprogram/{{delProgIdForBatch}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"putprogram",
+						"{{delProgIdForBatch}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-Update Program BY ID Status code-400 with changed endpoint URL -Bug",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"programDescription\": \"Updated by ID by Path-Program for Salesforce Admin & Dev\",\n\"programName\": \"Updated by ID by Path-Jun23-Lightning API Hackers-DA-14\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/putprogram/{{CHProgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"putprogram",
+						"{{CHProgId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete- Program BY ID Status code-200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/deletebyprogid/{{CHProgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"deletebyprogid",
+						"{{CHProgId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete- Program BY ID Status code-404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/deletebyprogid/{{CHProgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"deletebyprogid",
+						"{{CHProgId}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete- Program BY Program Name Status code-200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/deletebyprogname/{{CHanprogName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"deletebyprogname",
+						"{{CHanprogName}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete- Program BY Program Name Status code-404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/deletebyprogname/{{CHanprogName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"deletebyprogname",
+						"{{CHanprogName}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

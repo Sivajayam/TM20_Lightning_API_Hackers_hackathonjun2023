@@ -1,0 +1,504 @@
+{
+	"id": "58b59840-0471-4a58-8f34-3651237c250b",
+	"values": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "teamName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "progDesc",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "progStatus",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userComt",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userEdPg",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userEdUg",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userFN",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userLN",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userLURL",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userLoc",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userRoleId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userRoleStatus",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userTZone",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userVisa",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "createdBy",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "graderId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "path1",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "path2",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "path3",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "path4",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "path5",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bdEvening",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bdWeekEnd",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bsInProgress",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "bsHighSpeed",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "updateBatchDesc",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "updatedBatchName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "updatedBatchStatus",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "updatedBatchCount",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchNegativeNoOfClasses",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "delProgIdForBatch",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "counterBatch",
+			"value": "15",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchDesc",
+			"value": "{{bdEvening}}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchStatus",
+			"value": "{{bsInProgress}}",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "batchId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "assignmentId",
+			"value": "12",
+			"enabled": true
+		},
+		{
+			"key": "assignmentDescription",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "dynamicNumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "counter",
+			"value": "89",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "globaProgramId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "globalProgramName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "userID",
+			"value": "U291",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ProgId",
+			"value": "5191",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "globalBatchId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "globalBatchName",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "progName",
+			"value": "Jun23-LightningAPIHackers-SFDC-28",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "progNamebyId",
+			"value": "Jun23-Lightning API Hackers-SFDC-29",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "globalProgramId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "programIdForBatch",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "globalBatchIdA",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "AssgId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "progIdbyName",
+			"value": "variable_value",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DelglobalprogId",
+			"value": "6530",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DelglobalprogName",
+			"value": "Jun23-LightningAPIHackers-SFDC-87",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "globalUserID",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "globalUserId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Invalidassgnid",
+			"value": "927",
+			"enabled": true
+		},
+		{
+			"key": "InvalidBatchid",
+			"value": "213",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CHwrongpgName",
+			"value": "{{CHanprogName}}up",
+			"enabled": true
+		},
+		{
+			"key": "CHProgId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CHprogNamebyId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CHanprogName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CHanprogIdbyName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Chwrongprogid",
+			"value": "99{{CHProgId}}",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NIcounterForProgram",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "assignmentIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "asinID0ForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "uIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "subDesc1ForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "studentIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "subIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "userForPostForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "submissionIdForPutForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "batchIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "submissionUId",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "uniqueIdForBatchNi",
+			"value": "0",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "currentTimeForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "teamNameForSubmit",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "submissionUIdForSubmit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Serialnumber",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Newcounter",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"name": "Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2023-06-28T17:59:36.165Z",
+	"_postman_exported_using": "Postman/10.15.7-230626-1443"
+}

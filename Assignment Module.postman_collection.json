@@ -1,0 +1,980 @@
+{
+	"info": {
+		"_postman_id": "3a91526e-e32a-4023-8b5f-f25c01813ffd",
+		"name": "Assignment Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24471297",
+		"_collection_link": "https://warped-water-711834.postman.co/workspace/TM20_Lightning_API_Hackers_hack~a44bf0c2-4210-470d-b1bd-fefbd7994fad/collection/28169965-3a91526e-e32a-4023-8b5f-f25c01813ffd?action=share&creator=24471297&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create New Program status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"//var counter = pm.globals.get(\"counterBatch\");\r",
+							"\r",
+							"// Increment the counter by 1\r",
+							"//counter++;\r",
+							"\r",
+							"// Set the updated counter value\r",
+							"//pm.globals.set(\"counterBatch\", counter);\r",
+							"\r",
+							"// Use the dynamic number in the request\r",
+							"//pm.globals.set(\"dynamicNumber\", counterBatch);\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"uniqueIdForBatchNi\", dateformat);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.programId);\r",
+							"pm.globals.set(\"globalProgramId\", response.programId);\r",
+							"//console.log(response.programName);\r",
+							"//pm.globals.set(\"globalProgramName\", response.programName);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"programDescription\" : \"{{progDesc}}\",\r\n\"programName\" : \"{{teamName}}{{uniqueIdForBatchNi}}\",\r\n\"programStatus\" : \"{{progStatus}}\"\r\n}\r\n//Jun23-Lightning API Hackers-DA",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch 1 status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('programIdForBatch', 357);\r",
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"//var batchDescArr = [\"Evening\", \"Weekend\"];\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"//var batchStatusArr = [\"In progress\", \"Lighening Speed\"];\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"uniqueIdForBatchNi\", dateformat);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.batchId);\r",
+							"pm.globals.set('globalBatchIdA',response.batchId);\r",
+							"\r",
+							"//console.log(response.batchName);\r",
+							"//pm.globals.set('globalBatchName',response.batchName);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{uniqueIdForBatchNi}}\",\r\n  \"batchNoOfClasses\": {{counterBatch}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request Create Assignment1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"//var counter = pm.globals.get(\"counter\")\r",
+							"\r",
+							"// Increment the counter by 1\r",
+							"//counter++;\r",
+							"\r",
+							"// Set the updated counter value\r",
+							"//pm.globals.set(\"counter\", counter);\r",
+							"\r",
+							"// Use the dynamic number in the request\r",
+							"//pm.variables.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"var AssgnDescArr = [\"For Loop\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"Serialnumber\", dateformat);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"const response=pm.response.json();\r",
+							"console.log(response.assignmentId);\r",
+							"pm.globals.set(\"AssgId\", response.assignmentId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentDescription\": \"{{assignmentDescription}}\",\r\n  \"assignmentName\": \"{{teamName}}SQL-{{Serialnumber}}\",\r\n  \"batchId\":\"{{globalBatchIdA}}\",\r\n  \"createdBy\":\"{{createdBy}}\",\r\n  \"dueDate\": \"{{dueDate}}\",\r\n  \"graderId\":\"{{graderId}}\",\r\n  \"pathAttachment1\": \"{{path1}}\",\r\n  \"pathAttachment2\": \"{{path2}}\",\r\n  \"pathAttachment3\": \"{{path3}}\",\r\n  \"pathAttachment4\": \"{{path4}}\",\r\n  \"pathAttachment5\": \"{{path5}}\"\r\n   }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request Create Assignment1 with missing field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"For Loop\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentDescription\": \"{{assignmentDescription}}\",\r\n  \r\n  \"assignmentName\": \"{{teamname}}-SQL-{{dynamicNumber}}\",\r\n  \"batchId\": {{globalBatchIdA}},\r\n  \r\n  \"createdBy\":  \"\",\r\n  \"dueDate\": \"{{dueDate}}\",\r\n  \"graderId\": \"{{graderId}}\",\r\n  \"pathAttachment1\": \"{{path1}}\",\r\n  \"pathAttachment2\": \"{{path2}}\",\r\n  \"pathAttachment3\": \"{{path3}}\",\r\n  \"pathAttachment4\": \"{{path4}}\",\r\n  \"pathAttachment5\": \"{{path5}}\"\r\n   }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request Create Assignment2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"//var counter = pm.globals.get(\"counter\")\r",
+							"\r",
+							"// Increment the counter by 1\r",
+							"//counter++;\r",
+							"\r",
+							"// Set the updated counter value\r",
+							"//pm.globals.set(\"counter\", counter);\r",
+							"\r",
+							"// Use the dynamic number in the request\r",
+							"//pm.variables.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"\r",
+							"var AssgnDescArr = [\"For Loop\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"Serialnumber\", dateformat);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentDescription\": \"{{assignmentDescription}}\",\r\n  \"assignmentName\": \"{{teamName}}-SQL-{{Serialnumber}}\",\r\n  \"batchId\": {{globalBatchIdA}},\r\n  \"createdBy\":\"{{createdBy}}\",\r\n  \"dueDate\": \"{{dueDate}}\",\r\n  \"graderId\": \"{{graderId}}\",\r\n  \"pathAttachment1\": \"{{path1}}\",\r\n  \"pathAttachment2\": \"{{path2}}\",\r\n  \"pathAttachment3\": \"{{path3}}\",\r\n  \"pathAttachment4\": \"{{path4}}\",\r\n  \"pathAttachment5\": \"{{path5}}\"\r\n   }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request Create Assignment2 without mandatory field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"For Loop\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentDescription\": \"{{assignmentDescription}}\",\r\n  \"assignmentName\": \"{{teamname}}-SQL-{{dynamicNumber}}\",\r\n  \"batchId\": {{globalBatchIdA}},\r\n  \r\n  \"createdBy\":  \"\",\r\n  \"dueDate\": \"{{dueDate}}\",\r\n  \"graderId\": \"{{graderId}}\",\r\n  \"pathAttachment1\": \"{{path1}}\",\r\n  \"pathAttachment2\": \"{{path2}}\",\r\n  \"pathAttachment3\": \"{{path3}}\",\r\n  \"pathAttachment4\": \"{{path4}}\",\r\n  \"pathAttachment5\": \"{{path5}}\"\r\n   }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Assignments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"const response=pm.response.json();\r",
+							"console.log(response[0].assignmentId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Assignments By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const response=pm.response.json();\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{AssgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{AssgId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Assignments By invalid Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const response=pm.response.json();"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{Invalidassgnid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{Invalidassgnid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Request to Update Assignment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"Python Coding\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": 0,\r\n    \"assignmentName\": \"Jun23-Lightning API Hackers-SA-SQL-2\",\r\n    \"assignmentDescription\": \"Java Coding\",\r\n    \"comments\": \"string\",\r\n    \"dueDate\": \"2023-06-19T22:02:28.140+00:00\",\r\n    \"pathAttachment1\": \"Filepath1\",\r\n    \"pathAttachment2\": \"Filepath2\",\r\n    \"pathAttachment3\": \"Filepath3\",\r\n    \"pathAttachment4\": \"Filepath4\",\r\n    \"pathAttachment5\": \"Filepath5\",\r\n    \"batchId\": 1,\r\n    \"createdBy\": \"U22\",\r\n    \"graderId\": \"U22\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{AssgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{AssgId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Request to Update Assignment with missing field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"Python Coding\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": 780,\r\n    \"assignmentName\": \"Jun23-Lightning API Hackers-SA-SQL-2\",\r\n    \"assignmentDescription\": \"Python Coding\",\r\n    \"comments\": \"string\",\r\n    \"dueDate\": \"2023-06-19T22:02:28.140+00:00\",\r\n    \"pathAttachment1\": \"Filepath1\",\r\n    \"pathAttachment2\": \"Filepath2\",\r\n    \"pathAttachment3\": \"Filepath3\",\r\n    \"pathAttachment4\": \"Filepath4\",\r\n    \"pathAttachment5\": \"Filepath5\",\r\n    \"batchId\": 1,\r\n    \"createdBy\": \"\",\r\n    \"graderId\": \"U22\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{AssgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{AssgId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Assignments By Batch Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments/batch/{{globalBatchIdA}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"batch",
+						"{{globalBatchIdA}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET  Assignments By Invalid Batch Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments/batch/{{InvalidBatchid}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"batch",
+						"{{InvalidBatchid}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Request to Delete Assignment By Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"Python Coding\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{AssgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{AssgId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Request to delete Assignment with Invalid Id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"// Get the current counter value\r",
+							"var counter = pm.environment.get(\"dynamicNumber\");\r",
+							"// Increment the counter by 1\r",
+							"console.log(\"before : \" + counter);\r",
+							"counter++;\r",
+							"pm.globals.set(\"dynamicNumber\", counter);\r",
+							"\r",
+							"//console.log(\"before : \" + cnt);\r",
+							"// Increment the counter by 1\r",
+							"//cnt++;\r",
+							"// Set the updated counter value\r",
+							"\r",
+							"var AssgnDescArr = [\"Python Coding\", \"SQL Practicing\"];\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"assignmentDescription\", AssgnDescArr[Math.floor\r",
+							"            (n * AssgnDescArr.length)]);\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{AssgId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{AssgId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

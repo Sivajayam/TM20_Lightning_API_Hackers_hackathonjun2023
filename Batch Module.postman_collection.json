@@ -1,0 +1,1269 @@
+{
+	"info": {
+		"_postman_id": "1d420d9b-76de-478b-afaa-66dc90a89d59",
+		"name": "Batch Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24471297",
+		"_collection_link": "https://warped-water-711834.postman.co/workspace/TM20_Lightning_API_Hackers_hack~a44bf0c2-4210-470d-b1bd-fefbd7994fad/collection/28168581-1d420d9b-76de-478b-afaa-66dc90a89d59?action=share&creator=24471297&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Create New Program status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"//var counter = pm.globals.get(\"counterBatch\");\r",
+							"//console.log(\"counter : \" + counter)\r",
+							"// Increment the counter by 1\r",
+							"//counter++;\r",
+							"\r",
+							"// Set the updated counter value\r",
+							"//pm.globals.set(\"counterBatch\", counter);\r",
+							"\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"uniqueIdForBatchNi\", dateformat);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.programId);\r",
+							"pm.globals.set(\"globalProgramId\", response.programId);\r",
+							"console.log(response.programName);\r",
+							"pm.globals.set(\"globalProgramName\", response.programName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"programDescription\" : \"{{progDesc}}\",\r\n\"programName\" : \"{{teamName}}{{uniqueIdForBatchNi}}\",\r\n\"programStatus\" : \"{{progStatus}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/saveprogram",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"saveprogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch 1 status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							"\r",
+							"\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"uniqueIdForBatchNi\", dateformat);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.batchId);\r",
+							"pm.globals.set('globalBatchId',response.batchId);\r",
+							"\r",
+							"console.log(response.batchName);\r",
+							"pm.globals.set('globalBatchName',response.batchName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{uniqueIdForBatchNi}}\",\r\n  \"batchNoOfClasses\": {{$randomInt}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch 2 status code 201",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							"\r",
+							"var cDateStr = new Date().toISOString();\r",
+							"var lDateStr = new Date().toISOString();\r",
+							"var date = new Date();\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = date.getMonth().toString();\r",
+							"var day = date.getDay().toString();\r",
+							"var hour = date.getHours().toString();\r",
+							"var minute = date.getMinutes().toString();\r",
+							"var secs = date.getMilliseconds().toString();\r",
+							"//var dateformat = year + month + day + hour + minute + secs;\r",
+							"var dateformat = minute + secs ;\r",
+							"pm.globals.set(\"uniqueIdForBatchNi\", dateformat);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"})\r",
+							"\r",
+							"const response = pm.response.json();\r",
+							"console.log(response.batchId);\r",
+							"pm.globals.set('batchId',response.batchId);\r",
+							"console.log(response.batchName);\r",
+							"pm.globals.set('batchName',response.batchName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{uniqueIdForBatchNi}}\",\r\n  \"batchNoOfClasses\": {{$randomInt}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch with blank batchStatus status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{counterBatch}}\",\r\n  \"batchNoOfClasses\": {{counterBatch}},\r\n  \"batchStatus\": \"\",\r\n  \"programId\": {{globalProgramId}}\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch with blank batchName status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"\",\r\n  \"batchNoOfClasses\": {{counterBatch}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch with an existing batchName status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{globalBatchName}}\",\r\n  \"batchNoOfClasses\": {{counterBatch}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch with 0 or negative batchNoOfClasses status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{counterBatch}}\",\r\n  \"batchNoOfClasses\": {{batchNegNoOfClasses}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Batches status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {},
+				"disableUrlEncoding": false
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by batchId status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/batchId/{{globalBatchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchId",
+						"{{globalBatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by batchName status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/batchName/{{globalBatchName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						"{{globalBatchName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batches By programId status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches/program/{{globalProgramId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						"{{globalProgramId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batch Details by batchId status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"batchDescription\": \"{{updateBatchDesc}}\",\r\n    \"batchName\": \"{{updatedBatchName}}\",\r\n    \"batchNoOfClasses\": {{updatedBatchCount}},\r\n    \"batchStatus\": \"{{}updatedBatchStatus}}\",\r\n    \"programId\": {{globalProgramId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches/{{globalBatchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{globalBatchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch by batchId status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/{{batchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Batch nonexisting programId status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Get the current counter value\r",
+							"var cnt = pm.globals.get(\"counterBatch\");\r",
+							"// Increment the counter by 1\r",
+							"cnt++;\r",
+							"// Set the updated counter value\r",
+							"pm.globals.set(\"counterBatch\", cnt);\r",
+							"\r",
+							"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+							"\r",
+							"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+							"\r",
+							"var n = Math.random();\r",
+							"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+							"            (n * batchDescArr.length)]);\r",
+							"pm.globals.set(\"batchStatus\", batchStatusArr[Math. floor(n * batchStatusArr.length)]);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{counterBatch}}\",\r\n  \"batchNoOfClasses\": {{counterBatch}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": {{delProgIdForBatch}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Batch Details by nonexisting batchId status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('batchId',10000);\r",
+							"/*var newProgramId = 662;\r",
+							"var newBatchDescription = \"changed batch description\";\r",
+							"var newBatchStatus = \"changed batch status\";\r",
+							"var newBatchName = \"Jun23-LightningAPIHackers-SDET102-UpdatedName\";\r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"batchDescription\":  \"{{updateBatchDesc}}\",\r\n  \"batchName\": \"{{updatedBatchName}}\",\r\n  \"batchNoOfClasses\": {{updatedBatchCount}},\r\n  \"batchStatus\": \"{{updatedBatchStatus}}\",\r\n  \"programId\": {{globalProgramId}}\r\n}\r\n/*\r\n{\r\n  \"batchDescription\": \"newBatchDescription\",\r\n  \"batchId\": {{batchId}},\r\n  \"batchName\": \"{{newBatchName}}\",\r\n  \"batchNoOfClasses\": 10,\r\n  \"batchStatus\": \"{{newBatchStatus}}\" ,\r\n  \"programId\": {{newProgramId}}\r\n}\r\n*/",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches/{{batchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Batches with wrong script status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {},
+				"disableUrlEncoding": false
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batchs",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batchs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by nonexisting batchId status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('batchId',14);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/batchId/{{batchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchId",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batch by nonexisting batchName status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/batchName/{{batchName}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"batchName",
+						"{{batchName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batches By nonexisting programId status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('programIdForBatch', 1000);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							"//{{DelglobalprogId}}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches/program/10000",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						"10000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Batches By alphabetical programId status code 400",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('programIdForBatch', \"string\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/batches/program/strProgId",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"program",
+						"strProgId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch by nonexisting batchId status code 404",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//pm.globals.set('batchId',10000);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/{{batchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{batchId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Batch by batchId status code 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"})\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/batches/{{globalBatchId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"batches",
+						"{{globalBatchId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
