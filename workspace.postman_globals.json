@@ -355,7 +355,7 @@
 		},
 		{
 			"key": "InvalidBatchid",
-			"value": "213",
+			"value": "",
 			"type": "any",
 			"enabled": true
 		},
@@ -495,10 +495,52 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "ctr1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PriteeID",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PriteeProgId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PriteeBatchId",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "phoneNo1",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "phoneNo2",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "phoneNo3",
+			"value": "",
+			"type": "default",
+			"enabled": true
 		}
 	],
 	"name": "Globals",
 	"_postman_variable_scope": "globals",
-	"_postman_exported_at": "2023-06-28T17:59:36.165Z",
+	"_postman_exported_at": "2023-06-29T02:08:15.043Z",
 	"_postman_exported_using": "Postman/10.15.7-230626-1443"
 }

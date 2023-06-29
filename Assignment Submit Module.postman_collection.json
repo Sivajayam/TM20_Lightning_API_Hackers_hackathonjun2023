@@ -1,0 +1,1042 @@
+{
+	"info": {
+		"_postman_id": "ea82fe59-8ed4-4657-943e-429a7f338f29",
+		"name": "Assignment Submit Module",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23644253",
+		"_collection_link": "https://warped-water-711834.postman.co/workspace/a44bf0c2-4210-470d-b1bd-fefbd7994fad/collection/27815734-ea82fe59-8ed4-4657-943e-429a7f338f29?action=share&creator=23644253&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "POST RequestCreateNewAssignment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							"console.log(new Date().getTime());\r",
+							"pm.globals.set(\"currentTimeForSubmit\", new Date().getTime());\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"const response=pm.response.json();\r",
+							"console.log(response.assignmentId);\r",
+							"pm.globals.set(\"assignmentIdForSubmit\", response.assignmentId);\r",
+							"console.log(pm.globals.get(\"assignmentIdForSubmit\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"assignmentDescription\": \"{{assignmentDescription}}\",\r\n  \"assignmentName\": \"{{teamNameForSubmit}}-{{currentTimeForSubmit}}\",\r\n  \"batchId\":\"1\",\r\n  \"createdBy\":\"U22\",\r\n  \"dueDate\": \"2023-08-19T23:59:58.140Z\",\r\n  \"graderId\":\"U22\",\r\n  \"pathAttachment1\": \"path1\",\r\n  \"pathAttachment2\": \"path2\",\r\n  \"pathAttachment3\": \"path3\",\r\n  \"pathAttachment4\": \"path4\",\r\n  \"pathAttachment5\": \"path5\"\r\n   }\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"All Submission\", function() {\r",
+							"    pm.expect(pm.response.json().length).to.gt(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"store result\", function() {\r",
+							"    pm.globals.set(\"asinID0ForSubmit\", pm.response.json()[4].assignmentId);\r",
+							"    pm.globals.set(\"uIdForSubmit\", pm.response.json()[0].userId);\r",
+							"    pm.globals.set(\"subDesc1ForSubmit\", pm.response.json()[0].subDesc);\r",
+							"    \r",
+							"   \r",
+							"})\r",
+							"const response=pm.response.json();\r",
+							"//set studentId to find the grade\r",
+							"pm.test(\"find users\", function() { \r",
+							"    for(var obj of response) {\r",
+							"        if(obj.grade!=-1)\r",
+							"        {\r",
+							"            pm.globals.set(\"studentIdForSubmit\", obj.userId);\r",
+							"            pm.globals.set(\"subIdForSubmit\", obj.submissionId);\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"find users\", function() {   \r",
+							"    pm.globals.set(\"userForPostForSubmit\", \"\");\r",
+							"    var userAll = [];\r",
+							"    var userArrWithAssignId = [];\r",
+							"    for(var obj of response) {\r",
+							"        var assignId = obj.assignmentId;\r",
+							"        var user = obj.userId;\r",
+							"        userAll.push(user);\r",
+							"        console.log(assignId + \"     \" + pm.environment.get(\"assignmentIdForSubmit\"));\r",
+							"        if(assignId == pm.globals.get(\"assignmentIdForSubmit\")) {\r",
+							"             userArrWithAssignId.push(user);\r",
+							"        }\r",
+							"//\r",
+							"    }\r",
+							"\r",
+							"    for(var user of userAll) {\r",
+							"        console.log(userArrWithAssignId.indexOf(user));\r",
+							"        if(userArrWithAssignId.indexOf(user) >=0) {\r",
+							"\r",
+							"        } else {\r",
+							"            console.log(pm.globals.get(\"userForPostForSubmit\"));\r",
+							"            pm.globals.set(\"userForPostForSubmit\", user);\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"    console.log(pm.globals.get(\"userForPostForSubmit\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST submitAssignment",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var cDateStr = new Date().toISOString();\r",
+							"console.log(cDateStr);\r",
+							"var date = new Date();\r",
+							"console.log(date);\r",
+							"var year = date.getFullYear().toString();\r",
+							"var month = String(date.getMonth() + 1).padStart(2, '0');\r",
+							"var day = String(date.getDate()).padStart(2, '0');\r",
+							"var hour = String(date.getHours()).padStart(2,'0');\r",
+							"var minute = String(date.getMinutes()).padStart(2,'0');\r",
+							"var secs = String(date.getSeconds()).padStart(2,'0');\r",
+							"// MM-dd-yyyy HH:mm:ss' \r",
+							"var dateformat =  month + '-' + day + '-' + year + ' '  + hour +':'+ minute + ':'+ secs;\r",
+							"console.log(dateformat);\r",
+							"pm.environment.set(\"subDateTimeForSubmit\", dateformat);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"        pm.globals.set(\"submissionIdForPutForSubmit\", pm.response.json().submissionId);\r",
+							"         pm.globals.set(\"submissionUIdForSubmit\", pm.response.json().userId);\r",
+							"    \r",
+							"\r",
+							"       \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": {{assignmentIdForSubmit}},\r\n    \"userId\": \"{{userForPostForSubmit}}\",\r\n    \"subDesc\": \"Submission  for hackathon\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Grades by StudentID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].userId).to.eql(pm.globals.get('studentIdForSubmit'));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/getGradesByStudentId/{{studentIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"getGradesByStudentId",
+						"{{studentIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Grades by Assignment ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.AssignmentId).to.eql(pm.globals.get(\"asinID0ForSubmit\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/getGrades/{{subIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"getGrades",
+						"{{subIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT resubmit Assignment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    //\"submissionId\":{{submissionIdForPutForSubmit}},\r\n    \"assignmentId\": {{assignmentIdForSubmit}},\r\n    \"userId\": \"{{userForPostForSubmit}}\",\r\n    \"subDesc\": \"Submission  for hackathon\"\r\n    //\"subDateTime\" : {{subDateTimeForSubmit}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/{{submissionIdForPutForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"{{submissionIdForPutForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Assignments 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"store result\", function() {\r",
+							"    var response = pm.response.json();\r",
+							"    for(var obj of response) {\r",
+							"        if(obj.assignmentId == pm.globals.get(\"assignmentIdForSubmit\")) {\r",
+							"            pm.globals.set(\"batchIdForSubmit\", obj.batchId);\r",
+							"        }\r",
+							"    }\r",
+							" \r",
+							"});\r",
+							"const response=pm.response.json();\r",
+							"console.log(response[0].assignmentId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Grades by BatchID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"  pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.length > 0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/grades/{{batchIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"grades",
+						"{{batchIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Grade assignment submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"     pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"store result\", function() {\r",
+							"    //pm.environment.set(\"subId\", pm.response.json().submissionId);\r",
+							"   //pm.globals.set(\"submissionUIdForSubmit\", pm.response.json().userId);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"submissionId\": 1332,\r\n        \"assignmentId\": {{assignmentIdForSubmit}},\r\n        \"userId\": \"{{uIdForSubmit}}\",\r\n        \"subDesc\": \"Submissions for API assignment\",\r\n        \"subComments\": \"string\",\r\n        \"subPathAttach1\": \"string\",\r\n        \"subPathAttach2\": \"string\",\r\n        \"subPathAttach3\": \"String\",\r\n        \"subPathAttach4\": \"string\",\r\n        \"subPathAttach5\": \"string\",\r\n        \"subDateTime\": \"07-25-2023 20:49:15\",\r\n        \"gradedBy\": \"U22\",\r\n        \"gradedDateTime\": null,\r\n        \"grade\": 1\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/gradesubmission/{{subIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"gradesubmission",
+						"{{subIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE DeleteSubmission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/{{subIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"{{subIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Submission by User ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"     pm.response.to.have.status(200);\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].userId).to.eql(pm.globals.get(\"submissionUIdForSubmit\"));\r",
+							"});\r",
+							"\r",
+							"   \r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/student/{{submissionUIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"student",
+						"{{submissionUIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Submission by batch  ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/studentbatch/1",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"studentbatch",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Submission by batch  ID Bug",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"ReponseBody check\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    console.log(\"--------------- \" + jsonData.length);\r",
+							"    pm.expect(jsonData.length).to.greaterThan(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission/studentbatch/{{batchIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission",
+						"studentbatch",
+						"{{batchIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Submission with wrong method",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function() {\r",
+							"  pm.expect(pm.response.code).to.equal(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Submission with incomplete end point",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Check Status code\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmissio",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmissio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET All Submission 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"All Submission\", function() {\r",
+							"    pm.expect(pm.response.json().length).to.gt(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check Status code\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"store result\", function() {\r",
+							"    pm.globals.set(\"asinID0ForSubmit\", pm.response.json()[4].assignmentId);\r",
+							"    pm.globals.set(\"uIdForSubmit\", pm.response.json()[0].userId);\r",
+							"    pm.globals.set(\"subDesc1ForSubmit\", pm.response.json()[0].subDesc);\r",
+							"    \r",
+							"   \r",
+							"})\r",
+							"const response=pm.response.json();\r",
+							"//set studentId to find the grade\r",
+							"pm.test(\"find users\", function() { \r",
+							"    for(var obj of response) {\r",
+							"        if(obj.grade!=-1)\r",
+							"        {\r",
+							"            pm.globals.set(\"studentIdForSubmit\", obj.userId);\r",
+							"            pm.globals.set(\"subIdForSubmit\", obj.submissionId);\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.test(\"find users\", function() {   \r",
+							"    pm.globals.set(\"userForPostForSubmit\", \"\");\r",
+							"    var userAll = [];\r",
+							"    var userArrWithAssignId = [];\r",
+							"    for(var obj of response) {\r",
+							"        var assignId = obj.assignmentId;\r",
+							"        var user = obj.userId;\r",
+							"        userAll.push(user);\r",
+							"        console.log(assignId + \"     \" + pm.environment.get(\"assignmentIdForSubmit\"));\r",
+							"        if(assignId == pm.globals.get(\"assignmentIdForSubmit\")) {\r",
+							"            userArrWithAssignId.push(user);\r",
+							"        }\r",
+							"//\r",
+							"    }\r",
+							"\r",
+							"    for(var user of userAll) {\r",
+							"        console.log(userArrWithAssignId.indexOf(user));\r",
+							"        if(userArrWithAssignId.indexOf(user) >=0) {\r",
+							"\r",
+							"        } else {\r",
+							"            console.log(pm.environment.get(\"userForPostForSubmit\"));\r",
+							"            pm.globals.set(\"userForPostForSubmit\", user);\r",
+							"            break;\r",
+							"        }\r",
+							"    }\r",
+							"    console.log(pm.globals.get(\"userForPostForSubmit\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST submitAssignment with missing mandatory field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400 Bad request,user ID is mandatory\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"             \r",
+							"});\r",
+							"pm.test(\"Check Response body :User ID is mandatory\\n \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"   pm.expect(jsonData.message).to.equal(\"User ID is mandatory\\n \");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": {{assignmentIdForSubmit}},\r\n   // \"userId\": \"{{userForPostForSubmit}}\",\r\n    \"subDesc\": \"   \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST submitAssignment with blank space for any field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400 bad request\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"             \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": \"  \",\r\n    \"userId\": \"{{userForPostForSubmit}}\",\r\n    \"subDesc\": \"Submission  for hackathon\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignmentsubmission",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignmentsubmission"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Request Create Assignment1 with NULL value for mandatory field",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400 bad request\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"             \r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"assignmentId\": {{assignmentIdForSubmit}},\r\n    \"userId\": \"NULL\",\r\n    \"subDesc\": \"Submission  for hackathon\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Request to Delete Assignment By Id created for submit module",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/assignments/{{assignmentIdForSubmit}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"assignments",
+						"{{assignmentIdForSubmit}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

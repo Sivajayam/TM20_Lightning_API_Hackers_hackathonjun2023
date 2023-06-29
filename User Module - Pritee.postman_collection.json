@@ -1,0 +1,1556 @@
+{
+	"info": {
+		"_postman_id": "14014a49-ce96-453a-9b84-ccaff8964d7a",
+		"name": "User Module - Pritee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24471297",
+		"_collection_link": "https://warped-water-711834.postman.co/workspace/TM20_Lightning_API_Hackers_hack~a44bf0c2-4210-470d-b1bd-fefbd7994fad/collection/28169272-14014a49-ce96-453a-9b84-ccaff8964d7a?action=share&creator=24471297&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "User Module",
+			"item": [
+				{
+					"name": "POST-SFDC Program1 Creation status code 201",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/* Get the current counter value\r",
+									"\r",
+									"var counter = pm.globals.get(\"counter\")\r",
+									"\r",
+									"// Increment the counter by 1\r",
+									"counter++;\r",
+									"\r",
+									"// Set the updated counter value\r",
+									"pm.globals.set(\"counter\", counter);\r",
+									"\r",
+									"// Use the dynamic number in the request\r",
+									"pm.variables.set(\"dynamicNumber\", counter);\r",
+									"*/\r",
+									"var cDateStr = new Date().toISOString();\r",
+									"var lDateStr = new Date().toISOString();\r",
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var month = date.getMonth().toString();\r",
+									"var dateformat = secs+hour+month;\r",
+									"pm.globals.set(\"PriteeID\",dateformat);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"console.log(response.programId);\r",
+									"pm.globals.set(\"PriteeProgId\", response.programId);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"programDescription\" : \"{{progDesc}}\",\r\n\"programName\" : \"{{teamName}}{{PriteeID}}\",\r\n\"programStatus\" : \"{{progStatus}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/saveprogram",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"saveprogram"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Batch 1 status code 201",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// Get the current counter value\r",
+									"var cnt = pm.globals.get(\"counterBatch\");\r",
+									"// Increment the counter by 1\r",
+									"cnt++;\r",
+									"// Set the updated counter value\r",
+									"pm.globals.set(\"counterBatch\", cnt);\r",
+									"\r",
+									"var batchDescArr = [\"{{bdEvening}}\", \"{{bdWeekEnd}}\"];\r",
+									"\r",
+									"var batchStatusArr = [\"{{bsInProgress}}\", \"{{bsHighSpeed}}\"];\r",
+									"\r",
+									"var n = Math.random();\r",
+									"pm.globals.set(\"batchDesc\", batchDescArr[Math.floor\r",
+									"            (n * batchDescArr.length)]);\r",
+									"pm.globals.set(\"batchStatus\", \"{{bsInProgress}}\");\r",
+									"\r",
+									"\r",
+									"var cDateStr = new Date().toISOString();\r",
+									"var lDateStr = new Date().toISOString();\r",
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var dateformat = minute + secs ;\r",
+									"pm.globals.set(\"PriteeID\", dateformat);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function(){\r",
+									"    pm.response.to.have.status(201);\r",
+									"})\r",
+									"\r",
+									"const response = pm.response.json();\r",
+									"console.log(response.batchId);\r",
+									"pm.globals.set('PriteeBatchId',response.batchId);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"batchDescription\": \"{{batchDesc}}\",\r\n  \"batchName\": \"{{teamName}}-{{PriteeID}}\",\r\n  \"batchNoOfClasses\": {{$randomInt}},\r\n  \"batchStatus\": \"{{batchStatus}}\",\r\n  \"programId\": \"{{PriteeProgId}}\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/batches",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"batches"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - R01",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var month = date.getMonth().toString();\r",
+									"var dateformat = year+minute+month+secs;\r",
+									"pm.globals.set(\"phoneNo1\",dateformat);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"const response1 = pm.response.json();\r",
+									"console.log(response1.userId);\r",
+									"pm.globals.set(\"globalUserId\",response1.userId);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{phoneNo1}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - R02",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var month = date.getMonth().toString();\r",
+									"var dateformat = year+minute+month+secs;\r",
+									"pm.globals.set(\"phoneNo2\",dateformat);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{phoneNo2}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - R03",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var month = date.getMonth().toString();\r",
+									"var dateformat = year+minute+month+secs;\r",
+									"pm.globals.set(\"phoneNo3\",dateformat);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{phoneNo3}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}\r\n\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty Role ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{$randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userRoleStatus}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1112222223,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"\",\r\n      \"userRoleStatus\": \"Role_Student\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Invalid visa status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{$randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1222333344,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"\"European-citizen\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty visa status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{$randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1111112223,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Duplicate phone number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1600700111,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userRoleStatus}}\"\r\n}\r\n/*\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1111112223,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty phone number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": \"\",\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userRoleStatus}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": \"\",\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty time zone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{$randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"\",\r\n  \"userVisaStatus\": \"{{userRoleStatus}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1111112444,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Invalid time zone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userRoleStatus}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1111118888,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R02\",\r\n      \"userRoleStatus\": \"Role_Staff\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"XYZ\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty firstname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"\",\r\n  \"userId\": \"{{randomInt}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 1111145638,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R03\",\r\n      \"userRoleStatus\": \"Role_Student\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Empty Lastname",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "/*{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{randomInt}}\",\r\n  \"userLastName\": \"\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{randomInt}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"{{userRoleId}}\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}*/\r\n\r\n{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"USA\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 4456378,\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"R01\",\r\n      \"userRoleStatus\": \"Role_Admin\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"PST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserInfoById",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUsersbyRoles",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users/roles",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllStaff",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users/getAllStaff",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"getAllStaff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserInfoById - Invalid User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users/U000",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"U000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserInfoById - Empty User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/users/users/\"\"",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"\"\""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MSC\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"Firstname\",\r\n  \"userId\": \"U3820\",\r\n  \"userLastName\": \"Lastname\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 273629,\r\n  \"userTimeZone\": \"CST\",\r\n  \"userVisaStatus\": \"Canada-citizen\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserRoleStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roleId\": \"R01\",\r\n  \"userRoleStatus\": \"Active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "assignUpdateUserRoleProgramBatchStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"programId\": {{PriteeProgId}},\r\n  \"roleId\":\"{{userRoleId}}\",\r\n  \"userId\":\"{{globalUserId}}\",\r\n  \"userRoleProgramBatches\": [\r\n    {\r\n      \"batchId\": {{PriteeBatchId}},\r\n      \"userRoleProgramBatchStatus\": \"Inactive\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleProgramBatchStatus/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleProgramBatchStatus",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Invalid UserID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404, 400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"{{$randomInt}}\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"U00\",\r\n  \"userPhoneNumber\": 334456676,\r\n  \"userTimeZone\": \"CST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/U00",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"U00"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Empty User ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404, 400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 38475645,\r\n  \"userTimeZone\": \"CST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/\"\"",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"\"\""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Empty FirstName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400, 404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"\",\r\n  \"userId\": \"U3114\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 233443445,\r\n  \"userTimeZone\": \"CST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Empty LastName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"U3114\",\r\n  \"userLastName\": \"\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 9897876,\r\n  \"userTimeZone\": \"CST\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Empty TimeZone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"U3114\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 765478909,\r\n  \"userTimeZone\": \"\",\r\n  \"userVisaStatus\": \"H1B\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser - Empty VisaStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"TestComment\",\r\n  \"userEduPg\": \"MBA\",\r\n  \"userEduUg\": \"BSC\",\r\n  \"userFirstName\": \"TestFirst\",\r\n  \"userId\": \"U3114\",\r\n  \"userLastName\": \"TestLast\",\r\n  \"userLinkedinUrl\": \"TestFirst.TestLast@gmail.com\",\r\n  \"userLocation\": \"Canada\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": 8827545655,\r\n  \"userTimeZone\": \"IST\",\r\n  \"userVisaStatus\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserRoleStatus - Empty RoleID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roleId\": \"\",\r\n  \"userRoleStatus\": \"Active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUserRoleStatus - Empty RoleStatus",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"roleId\": \"R01\",\r\n  \"userRoleStatus\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/lms/users/users/roleStatus/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"lms",
+								"users",
+								"users",
+								"roleStatus",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUserWithRole - Invalid Role ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var date = new Date();\r",
+									"var year = date.getFullYear().toString();\r",
+									"var month = date.getMonth().toString();\r",
+									"var day = date.getDay().toString();\r",
+									"var hour = date.getHours().toString();\r",
+									"var minute = date.getMinutes().toString();\r",
+									"var secs = date.getMilliseconds().toString();\r",
+									"//var dateformat = year + month + day + hour + minute + secs;\r",
+									"var month = date.getMonth().toString();\r",
+									"var dateformat = year+minute+secs+month;\r",
+									"pm.globals.set(\"phoneNo4\",dateformat);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userComments\": \"{{userComt}}\",\r\n  \"userEduPg\": \"{{userEdPg}}\",\r\n  \"userEduUg\": \"{{userEdUg}}\",\r\n  \"userFirstName\": \"{{userFN}}\",\r\n  \"userId\": \"{{globalUserId}}\",\r\n  \"userLastName\": \"{{userLN}}\",\r\n  \"userLinkedinUrl\": \"{{userLURL}}\",\r\n  \"userLocation\": \"{{userLoc}}\",\r\n  \"userMiddleName\": \"\",\r\n  \"userPhoneNumber\": {{phoneNo4}},\r\n  \"userRoleMaps\": [\r\n    {\r\n      \"roleId\": \"xyz\",\r\n      \"userRoleStatus\": \"{{userRoleStatus}}\"\r\n    }\r\n  ],\r\n  \"userTimeZone\": \"{{userTZone}}\",\r\n  \"userVisaStatus\": \"{{userVisa}}\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/roleStatus",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"roleStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Delete request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/users/users/{{globalUserId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"users",
+								"users",
+								"{{globalUserId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.collectionVariables.get(\"userId\");",
+					"pm.collectionVariables.set(\"userId\", \"{{userIdtodelete}}\");"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://lms-api-hackathon-june2023-930a8b0f895d.herokuapp.com"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		}
+	]
+}
