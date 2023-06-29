@@ -1,0 +1,11 @@
+call newman run Program_PostmanHackathonJun2023.json -d Postman_Hackathon_Data.csv -r htmlextra --reporter-htmlextra-export ./reports/ProgramReport1.html
+
+echo Program report generated
+
+call newman run Batch_PostmanHackathonJun2023.json -d Postman_Hackathon_Data.csv -r htmlextra --reporter-htmlextra-export ./reports/BatchReport1.html
+
+echo Batch report generated
+
+call newman run Assignment_PostmanHackathonJun2023.json -d Postman_Hackathon_Data.csv -r htmlextra --reporter-htmlextra-export ./reports/AssignmentReport1.html
+
+echo Assignment report generated
