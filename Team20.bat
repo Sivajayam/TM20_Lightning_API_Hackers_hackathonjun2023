@@ -6,6 +6,6 @@ call newman run "Assignment Module.postman_collection.json" -g "C:\\Users\\sivas
 
 echo Batch report generated
 
-call newman run "Program Module.postman_collection.json" -d Postman_Hackathon_Data.csv -r htmlextra --reporter-htmlextra-export ./reports/AssignmentReport1.html
+call newman run "Program Module.postman_collection.json" -d Postman_Hackathon_Data.csv -r htmlextra --reporter-htmlextra-export ./reports/ProgramReport1.html
 
 echo Assignment report generated
